@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireframe Hello World Animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
+        }
+
+        .container {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .word {
+            font-size: 4rem;
+            font-weight: bold;
+            color: transparent;
+            border: 2px solid #22c55e;
+            -webkit-text-stroke: 2px #22c55e;
+            text-shadow: 
+                0 0 10px #22c55e,
+                0 0 20px #22c55e,
+                0 0 30px #22c55e,
+                4px 4px 0px #166534,
+                8px 8px 0px #0f3f26,
+                12px 12px 0px #052e16,
+                16px 16px 20px rgba(0, 0, 0, 0.8);
+            transform: perspective(1000px) rotateX(15deg) rotateY(-5deg) translateX(-100vw);
+            transform-style: preserve-3d;
+            opacity: 0;
+            transition: all 1s ease-out;
+            padding: 0.5rem 1rem;
+        }
+
+        .word.animate {
+            transform: perspective(1000px) rotateX(15deg) rotateY(-5deg) translateX(0);
+            opacity: 1;
+        }
+
+        .grid-background {
+            position: absolute;
+            inset: 0;
+            opacity: 0.2;
+            pointer-events: none;
+            background-image: 
+                linear-gradient(rgba(34, 197, 94, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 197, 94, 0.3) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        @media (min-width: 768px) {
+            .word {
+                font-size: 6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="word" data-word="HELLO">HELLO</div>
+        <div class="word" data-word="WORLD">WORLD</div>
+    </div>
+
+    <div class="grid-background"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const words = document.querySelectorAll('.word');
+            let currentIndex = 0;
+
+            function animateNextWord() {
+                if (currentIndex < words.length) {
+                    words[currentIndex].classList.add('animate');
+                    currentIndex++;
+                    setTimeout(animateNextWord, 1000);
+                }
+            }
+
+            // Start animation after a brief delay
+            setTimeout(animateNextWord, 500);
+        });
+    </script>
+</body>
+</html>
